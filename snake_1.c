@@ -47,6 +47,9 @@ void DrawSnake(SDL_Renderer *renderer, SDL_FRect *body, int length)
         }
         SDL_RenderFillRect(renderer, &body[i]);
     }
+
+    // SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    // SDL_RenderFillRect(renderer, head);
 }
 
 void ScoreCount(SDL_Renderer *renderer, TTF_Font *font)
@@ -264,32 +267,7 @@ int main(int argc, char *argv[])
             }
         }
 
-      
-
-        SDL_SetRenderDrawColor(renderer, 20, 20, 30, 255);
-
-        SDL_RenderClear(renderer);
-
         if (!game_over)
-        {
-            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-            SDL_RenderFillRect(renderer, &food);
-
-            DrawSnake(renderer, &snake_body[0], snake_length);
-            ScoreCount(renderer, font);
-        }
-
-        else
-        {
-            DrawGameOverAndLastScore(renderer, font,score);
-        }
-
-        // SDL_RenderFillRect(renderer, &snake_head);
-
-        SDL_RenderPresent(renderer);
-        SDL_Delay(130);
-    }
-  if (!game_over)
         {
             for (int i = snake_length - 1; i > 0; i--)
             {
@@ -316,6 +294,31 @@ int main(int argc, char *argv[])
                 game_over = true;
             }
         }
+
+        SDL_SetRenderDrawColor(renderer, 20, 20, 30, 255);
+
+        SDL_RenderClear(renderer);
+
+        if (!game_over)
+        {
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+            SDL_RenderFillRect(renderer, &food);
+
+            DrawSnake(renderer, &snake_body[0], snake_length);
+            ScoreCount(renderer, font);
+        }
+
+        else
+        {
+            DrawGameOverAndLastScore(renderer, font,score);
+        }
+
+        // SDL_RenderFillRect(renderer, &snake_head);
+
+        SDL_RenderPresent(renderer);
+        SDL_Delay(200);
+    }
+
     if (font != NULL)
     {
         TTF_CloseFont(font);
